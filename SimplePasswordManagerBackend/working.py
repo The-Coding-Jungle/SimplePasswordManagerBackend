@@ -45,29 +45,37 @@ class Working:
             return False 
 
     def getEntry(self, email: str, website: str) -> str:
-        try:    
-            self.cur.execute(f"SELECT password FROM Passwords WHERE (email = '{email}' AND website = '{website}');")
-            encryptedData = self.cur.fetchall()[0]
-            return decrypt(encryptedData[0], self._privateKey)
-        except Exception:
-            return ""
+        if self.loginStatus:    
+            try:    
+                self.cur.execute(f"SELECT password FROM Passwords WHERE (email = '{email}' AND website = '{website}');")
+                encryptedData = self.cur.fetchall()[0]
+                return decrypt(encryptedData[0], self._privateKey)
+            except Exception:
+                return ""
+        return ""
 
     def putEntry(self, email: str, website: str, password: str) -> bool:
-        try:
-            self.cur.execute(f"INSERT INTO Passwords (email, website, password) VALUES ('{email}', '{website}', '{encrypt(password, self._privateKey)}');")
-            self.conn.commit()
-            return True
-        except Exception as e:
-            return False
+        if self.loginStatus:
+            try:
+                self.cur.execute(f"INSERT INTO Passwords (email, website, password) VALUES ('{email}', '{website}', '{encrypt(password, self._privateKey)}');")
+                self.conn.commit()
+                return True
+            except Exception as e:
+                return False
+        return False
 
     def updateEntry(self, oldEmail: str, oldWebsite: str, email: str, website: str, password: str) -> None:
-        self.cur.execute(f"UPDATE Passwords SET email = '{email}', website = '{website}', password = '{encrypt(password, self._privateKey)}' WHERE (email = '{oldEmail}' AND website = '{oldWebsite}');")
-        self.conn.commit()
+        if self.loginStatus:    
+            self.cur.execute(f"UPDATE Passwords SET email = '{email}', website = '{website}', password = '{encrypt(password, self._privateKey)}' WHERE (email = '{oldEmail}' AND website = '{oldWebsite}');")
+            self.conn.commit()
 
     def seeEntries(self):
-        self.cur.execute("SELECT email, website FROM Passwords;")
-        return self.cur.fetchall()
-        # To return in format of (email, website) tuple.
+        if self.loginStatus:    
+            self.cur.execute("SELECT email, website FROM Passwords;")
+            return self.cur.fetchall()
+            # To return in format of (email, website) tuple.
+        else:
+            return []
 
     def __del__(self):
         self.loginStatus = False
