@@ -7,8 +7,8 @@ setup(
   description = 'Simple password manager backend',   # Give a short description about your library
   author = 'Het Daftary',                   # Type in your name
   author_email = 'hetdaftary@gmail.com',      # Type in your E-Mail
-  url = 'https://github.com/The-Coding-Jungle',   # Provide either the link to your github or to your website
-  download_url = 'https://github.com/user/reponame/archive/v_01.tar.gz',    # I explain this later on
+  url = 'https://github.com/The-Coding-Jungle/SimplePasswordManagerBackend',   # Provide either the link to your github or to your website
+  download_url = 'https://github.com/The-Coding-Jungle/SimplePasswordManagerBackend/archive/refs/tags/1.1.tar.gz',    # I explain this later on
   keywords = ['SOME', 'MEANINGFULL', 'KEYWORDS'],   # Keywords that define your package best
   install_requires=[            # I get to this in a second
           'clipboard',
