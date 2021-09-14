@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'SimplePasswordManagerBackend',
   packages = ['SimplePasswordManagerBackend'], # this must be the same as the name above
-  version = '0.5',
+  version = '1.0.0',
   description = 'Simple Password Manager Backend Module',
   long_description="./README.md",
   long_description_content_type='text/markdown',
